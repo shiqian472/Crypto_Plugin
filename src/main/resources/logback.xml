@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 要新增到src/main/resources底下 -->
+<configuration debug="false" scan="true" scanPeriod="1 seconds">
+
+    <!-- 輸出Log的路徑 -->
+    <property name="LOG_ROOT" value="./Crypto_Plugin_Logs/"/>
+
+    <!-- 自動將以前的Log壓縮 -->
+    <property name="FILE_NAME_PATTERN" value="_%d{yyyy-MM-dd}.%i.zip"/>
+
+    <!-- 輸出格式 -->
+    <property name="ENCODER_PATTERN"
+              value="%d{HH:mm:ss.SSS} %level %t %logger[%M:%L] - %msg%n"/>
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>${ENCODER_PATTERN}</pattern>
+        </layout>
+    </appender>
+
+    <appender name="Crypto_Plugin_Logs"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_ROOT}Crypto_Plugin_Logs${FILE_NAME_PATTERN}
+            </fileNamePattern>
+            <maxHistory>5</maxHistory><!--5天以前的LogFile自動刪除 -->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- 容量>10MB，自動壓縮，%i會自動往上加 -->
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>${ENCODER_PATTERN}</Pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+
+    <appender name="BotvSingWsClient_Logs"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_ROOT}BotvSingWsClient_Logs${FILE_NAME_PATTERN}
+            </fileNamePattern>
+            <maxHistory>5</maxHistory><!--5天以前的LogFile自動刪除 -->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- 容量>10MB，自動壓縮，%i會自動往上加 -->
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>${ENCODER_PATTERN}</Pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+
+    <logger name="java.sql.PreparedStatement" level="error"/>
+
+    <logger name="org.quartz" level="error"/>
+
+    <!-- 設定為DEBUG，會印INFO、DEBUG -->
+    <logger name="Crypto_Plugin_Logs" level="DEBUG" additivity="true">
+        <appender-ref ref="Crypto_Plugin_Logs"/>
+    </logger>
+    <logger name="BotvSingWsClient_Logs" level="DEBUG" additivity="true">
+        <appender-ref ref="BotvSingWsClient_Logs"/>
+    </logger>
+
+
+    <logger name="stdout" level="INFO" additivity="false">
+        <appender-ref ref="stdout"/>
+    </logger>
+
+    <!-- ERROR-WARN-INFO-DEBUG -->
+    <root level="INFO">
+        <appender-ref ref="stdout"/>
+    </root>
+
+</configuration>
