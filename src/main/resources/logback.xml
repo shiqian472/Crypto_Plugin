@@ -58,6 +58,26 @@
         </filter>
     </appender>
 
+    <appender name="LineBot_Logs"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_ROOT}LineBot_Logs${FILE_NAME_PATTERN}
+            </fileNamePattern>
+            <maxHistory>5</maxHistory><!--5天以前的LogFile自動刪除 -->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- 容量>10MB，自動壓縮，%i會自動往上加 -->
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>${ENCODER_PATTERN}</Pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+
     <logger name="java.sql.PreparedStatement" level="error"/>
 
     <logger name="org.quartz" level="error"/>
@@ -68,6 +88,9 @@
     </logger>
     <logger name="BotvSingWsClient_Logs" level="DEBUG" additivity="true">
         <appender-ref ref="BotvSingWsClient_Logs"/>
+    </logger>
+    <logger name="LineBot_Logs" level="DEBUG" additivity="true">
+        <appender-ref ref="LineBot_Logs"/>
     </logger>
 
 

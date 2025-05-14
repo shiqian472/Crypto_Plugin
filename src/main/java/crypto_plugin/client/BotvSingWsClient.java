@@ -49,7 +49,7 @@ public class BotvSingWsClient {
         // 初始訂閱
         try {
             String initMessage = """
-                    {"type":"set_min_oi","value":0,"compression":true,"incremental":true}
+                    {"type":"set_min_oi","value":1,"compression":true,"incremental":true}
                     """;
             session.getAsyncRemote().sendText(initMessage);
             log.info(ToolsUtil.getLog("已送出訊息: " + initMessage));
@@ -68,7 +68,7 @@ public class BotvSingWsClient {
             while ((len = inflater.read(buffer)) != -1) {
                 sb.append(new String(buffer, 0, len));
             }
-            log.info(ToolsUtil.getLog("解壓完成."));
+//            log.info(ToolsUtil.getLog("解壓完成."));
 //            log.info(ToolsUtil.getLog(sb.toString()));
             botvSingService.processData(sb);
         } catch (Exception ex) {

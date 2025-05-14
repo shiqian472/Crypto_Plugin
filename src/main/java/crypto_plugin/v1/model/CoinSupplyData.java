@@ -2,10 +2,14 @@ package crypto_plugin.v1.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
+import java.math.BigDecimal;
+
+@Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CoinSupplyData {
-    public Double bid;
+    public BigDecimal bid;
     public Double ask;
     public String exchange;
     public String symbol;
@@ -16,15 +20,15 @@ public class CoinSupplyData {
     public Double spotAsk;
 
     @JsonProperty("funding_fee")
-    public Double fundingFee;
+    public BigDecimal fundingFee;
 
     @JsonProperty("apr_funding")
-    public Double aprFunding;
+    public BigDecimal aprFunding;
 
-    public Double oi;
+    public BigDecimal oi;
 
     @JsonProperty("volume_24h")
-    public Double volume24h;
+    public BigDecimal volume24h;
 
     @Override
     public String toString() {

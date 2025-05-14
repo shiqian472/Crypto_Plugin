@@ -74,6 +74,12 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.linecorp.bot</groupId>
+            <artifactId>line-bot-spring-boot-handler</artifactId>
+            <version>9.7.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>

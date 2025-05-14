@@ -38,7 +38,7 @@ public class ConfigScheduler implements SchedulingConfigurer {
     }
 
 
-    @Scheduled(initialDelay = 1000, fixedRate = 15000)
+    @Scheduled(initialDelay = 100, fixedRate = 15000)
     public void getCoinSupply() {
         botvSingService.getCoinSupply();
     }
